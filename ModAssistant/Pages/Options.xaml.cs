@@ -29,8 +29,10 @@ namespace ModAssistant.Pages
         public bool BeatSaverProtocolHandlerEnabled { get; set; }
         public bool PlaylistsProtocolHandlerEnabled { get; set; }
         public bool CloseWindowOnFinish { get; set; }
+        public bool AllowPending { get; set; }
         public string LogURL { get; private set; }
         public string OCIWindow { get; set; }
+        public string CustomAPI { get; set; }
 
         public Options()
         {
@@ -56,6 +58,24 @@ namespace ModAssistant.Pages
             ModelSaberProtocolHandlerEnabled = OneClickInstaller.IsRegistered("modelsaber");
             BeatSaverProtocolHandlerEnabled = OneClickInstaller.IsRegistered("beatsaver");
             PlaylistsProtocolHandlerEnabled = OneClickInstaller.IsRegistered("bsplaylist");
+        }
+
+        private void SaveAPI_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.CustomAPI = "https://kibbewater.xyz/beatsaber/";
+            App.CustomAPI = "https://kibbewater.xyz/beatsaber/";
+            CustomAPI = "https://kibbewater.xyz/beatsaber/";
+            APITextBlock.Text = "https://kibbewater.xyz/beatsaber/";
+            Properties.Settings.Default.Save();
+        }
+
+        private void ClearAPI_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.CustomAPI = "";
+            App.CustomAPI = "";
+            CustomAPI = "";
+            APITextBlock.Text = "";
+            Properties.Settings.Default.Save();
         }
 
         private void SelectDirButton_Click(object sender, RoutedEventArgs e)
@@ -86,6 +106,22 @@ namespace ModAssistant.Pages
         {
             Properties.Settings.Default.SaveSelected = false;
             App.SaveModSelection = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void AllowPending_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AllowPending = true;
+            App.AllowPending = true;
+            AllowPending = true;
+            Properties.Settings.Default.Save();
+        }
+
+        private void AllowPending_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AllowPending = false;
+            App.AllowPending = false;
+            AllowPending = false;
             Properties.Settings.Default.Save();
         }
 

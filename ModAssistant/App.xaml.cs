@@ -20,6 +20,7 @@ namespace ModAssistant
         public static bool SelectInstalledMods;
         public static bool ReinstallInstalledMods;
         public static bool CloseWindowOnFinish;
+        public static bool AllowPending;
         public static string Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         public static List<string> SavedMods = ModAssistant.Properties.Settings.Default.SavedMods.Split(',').ToList();
         public static MainWindow window;
@@ -27,6 +28,7 @@ namespace ModAssistant
         public static bool Update = true;
         public static bool GUI = true;
         public static string OCIWindow;
+        public static string CustomAPI;
 
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -79,6 +81,10 @@ namespace ModAssistant
                 ReinstallInstalledMods = ModAssistant.Properties.Settings.Default.ReinstallInstalled;
             options.CloseWindowOnFinish =
                 CloseWindowOnFinish = ModAssistant.Properties.Settings.Default.CloseWindowOnFinish;
+            options.CustomAPI =
+                CustomAPI = ModAssistant.Properties.Settings.Default.CustomAPI;
+            options.AllowPending =
+                AllowPending = ModAssistant.Properties.Settings.Default.AllowPending;
 
             await ArgumentHandler(e.Args);
             await Init();

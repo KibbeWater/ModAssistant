@@ -42,6 +42,8 @@ namespace ModAssistant.Pages
             InitializeComponent();
         }
 
+        private string GetAPIURL() => Properties.Settings.Default.CustomAPI == "" ? Utils.Constants.BeatModsAPIUrl : Properties.Settings.Default.CustomAPI;
+
         private void RefreshModsList()
         {
             if (view != null)
@@ -162,7 +164,7 @@ namespace ModAssistant.Pages
 
         public async Task GetAllMods()
         {
-            var resp = await HttpClient.GetAsync(Utils.Constants.BeatModsAPIUrl + "mod");
+            var resp = await HttpClient.GetAsync(GetAPIURL() + "mod");
             var body = await resp.Content.ReadAsStringAsync();
             AllModsList = JsonSerializer.Deserialize<Mod[]>(body);
         }
@@ -263,7 +265,10 @@ namespace ModAssistant.Pages
         {
             try
             {
-                var resp = await HttpClient.GetAsync(Utils.Constants.BeatModsAPIUrl + Utils.Constants.BeatModsModsOptions + "&gameVersion=" + MainWindow.GameVersion);
+                var reqURL = Properties.Settings.Default.AllowPending ?
+                    GetAPIURL() + "mod?gameVersion=" + MainWindow.GameVersion :
+                    GetAPIURL() + Utils.Constants.BeatModsModsOptions + "&gameVersion=" + MainWindow.GameVersion;
+                var resp = await HttpClient.GetAsync(reqURL);
                 var body = await resp.Content.ReadAsStringAsync();
                 ModsList = JsonSerializer.Deserialize<Mod[]>(body);
             }
@@ -275,6 +280,8 @@ namespace ModAssistant.Pages
 
             foreach (Mod mod in ModsList)
             {
+                if (!Properties.Settings.Default.AllowPending && (mod.status == "pending" || mod.status == "declined"))
+                    continue;
                 bool preSelected = mod.required;
                 if (DefaultMods.Contains(mod.name) || (App.SaveModSelection && App.SavedMods.Contains(mod.name)))
                 {
@@ -291,7 +298,7 @@ namespace ModAssistant.Pages
                 {
                     IsSelected = preSelected,
                     IsEnabled = !mod.required,
-                    ModName = mod.name,
+                    ModName = Properties.Settings.Default.AllowPending ? mod.status == "pending" ? mod.name + " [PENDING]" : mod.status == "declined" ? mod.name + " [DECLINED]" : mod.name : mod.name,
                     ModVersion = mod.version,
                     ModDescription = mod.description.Replace("\r\n", " ").Replace("\n", " "),
                     ModInfo = mod,
@@ -513,10 +520,12 @@ namespace ModAssistant.Pages
 
         private void ResolveDependencies(Mod dependent)
         {
+
             if (dependent.ListItem.IsSelected && dependent.dependencies.Length > 0)
             {
                 foreach (Mod.Dependency dependency in dependent.dependencies)
                 {
+
                     if (dependency.Mod.ListItem.IsEnabled)
                     {
                         dependency.Mod.ListItem.PreviousState = dependency.Mod.ListItem.IsSelected;

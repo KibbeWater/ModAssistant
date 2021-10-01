@@ -137,8 +137,11 @@
     <sys:String x:Key="Options:PageTitle">Settings</sys:String>
     <sys:String x:Key="Options:InstallFolder">Install Folder</sys:String>
     <sys:String x:Key="Options:SelectFolderButton">Select Folder</sys:String>
+    <sys:String x:Key="Options:SaveAPIButton">Change API</sys:String>
+    <sys:String x:Key="Options:ClearAPIButton">Remove API</sys:String>
     <sys:String x:Key="Options:OpenFolderButton">Open Folder</sys:String>
     <sys:String x:Key="Options:SaveSelectedMods">Save Selected Mods</sys:String>
+    <sys:String x:Key="Options:AllowPending">Allow Unapproved Mods</sys:String>
     <sys:String x:Key="Options:CheckInstalledMods">Detect Installed Mods</sys:String>
     <sys:String x:Key="Options:SelectInstalledMods">Select Installed Mods</sys:String>
     <sys:String x:Key="Options:ReinstallInstalledMods">Reinstall Installed Mods</sys:String>
@@ -160,6 +163,7 @@
     <sys:String x:Key="Options:OCIWindowClose">Close</sys:String>
     <sys:String x:Key="Options:OCIWindowNo">No</sys:String>
     <sys:String x:Key="Options:Diagnostics">Diagnostics</sys:String>
+    <sys:String x:Key="Options:CustomAPI">Custom API</sys:String>
     <sys:String x:Key="Options:OpenLogsButton">Open Logs</sys:String>
     <sys:String x:Key="Options:OpenAppDataButton">Open AppData</sys:String>
     <sys:String x:Key="Options:UninstallBSIPAButton">Uninstall BSIPA</sys:String>
