@@ -62,10 +62,9 @@ namespace ModAssistant.Pages
 
         private void SaveAPI_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.CustomAPI = "https://kibbewater.xyz/beatsaber/";
-            App.CustomAPI = "https://kibbewater.xyz/beatsaber/";
-            CustomAPI = "https://kibbewater.xyz/beatsaber/";
-            APITextBlock.Text = "https://kibbewater.xyz/beatsaber/";
+            Properties.Settings.Default.CustomAPI = APITextIn.Text;
+            App.CustomAPI = APITextIn.Text;
+            CustomAPI = APITextIn.Text;
             Properties.Settings.Default.Save();
         }
 
@@ -74,7 +73,7 @@ namespace ModAssistant.Pages
             Properties.Settings.Default.CustomAPI = "";
             App.CustomAPI = "";
             CustomAPI = "";
-            APITextBlock.Text = "";
+            APITextIn.Text = "";
             Properties.Settings.Default.Save();
         }
 

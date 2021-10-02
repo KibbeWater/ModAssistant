@@ -50,5 +50,11 @@
     <Setting Name="OCIWindow" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="CustomAPI" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://kibbewater.xyz/beatsaber/</Value>
+    </Setting>
+    <Setting Name="AllowPending" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
