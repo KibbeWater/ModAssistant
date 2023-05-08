@@ -313,7 +313,7 @@ namespace ModAssistant.Pages
             }
             foreach (Mod mod in Mods.InstalledMods)
             {
-                if (mod.name.ToLower() == "bsipa")
+                if (mod.name.ToLowerInvariant() == "bsipa")
                 {
                     Mods.Instance.UninstallMod(mod);
                     break;
@@ -439,7 +439,8 @@ namespace ModAssistant.Pages
             {
                 if (state == "Yes") comboBox.SelectedIndex = 0;
                 else if (state == "Close") comboBox.SelectedIndex = 1;
-                else if (state == "No") comboBox.SelectedIndex = 2;
+                else if (state == "Notify") comboBox.SelectedIndex = 2;
+                else if (state == "No") comboBox.SelectedIndex = 3;
                 else return;
             }
             if (!string.IsNullOrEmpty(state))
